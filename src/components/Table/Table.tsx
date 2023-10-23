@@ -1,3 +1,5 @@
+'use client'
+
 import React, { FC, Key, MouseEvent, MouseEventHandler, ReactNode, useEffect, useState } from 'react';
 import TableRow, { TableRowProps } from './TableRow';
 import './Table.scss'

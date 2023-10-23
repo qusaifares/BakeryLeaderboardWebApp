@@ -1,13 +1,12 @@
+'use client'
+
 import Table, { CellData, ColumnProps, RowData } from '../Table';
 import { LeaderboardPlayerData } from '@/types/data/leaderboard';
-import { getEmblemImageUrlByTier } from '@/utils/riotAssetUrl';
-import { capitalized } from '@/utils/string';
 import { transformDataToTableRow } from '@/utils/table';
 
 import './PlayerTable.scss'
 import { PlayerTierEnum } from '../../../../resources/BakeryLeaderboardServiceModel/output/model/typescript';
 import TierImage from '@/components/Image/TierImage/TierImage';
-import { extractTierFromRankString, getRankValue } from '@/utils/rankValue';
 
 interface Props {
   rows: LeaderboardPlayerData[];
