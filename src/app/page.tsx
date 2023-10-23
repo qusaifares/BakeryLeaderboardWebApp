@@ -8,6 +8,8 @@ export default async function Home() {
   const leaderboard = await leaderboardApi.getLeaderboard();
 
   const leaderboardData = leaderboard?.players || [];
+
+  console.log('Leaderboard data:', leaderboardData);
   return (
     <div className={styles.homepage}>
       {/* {JSON.stringify(leaderboardData)} */}
