@@ -22,7 +22,6 @@ const columns: ColumnProps<RowData<LeaderboardPlayerData>>[] = [
   displayFunction: (r) => {
     const v = r.rank.value;
     const tier = r.tier.value as PlayerTierEnum;
-    console.log(tier, r)
     return <div className='playerTable__tierCell'>
         {tier && <TierImage tier={tier} width={128} height={72} />}
         <p style={{marginLeft: '0.25rem'}}>{v}</p>

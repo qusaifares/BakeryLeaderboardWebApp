@@ -2,7 +2,6 @@ import { PlayerDivisionEnum, PlayerTierEnum } from "../../resources/BakeryLeader
 import { capitalized } from "./string";
 
 export function extractTierFromRankString(rankString: string): PlayerTierEnum | null {
-  console.log(rankString)
   const tierString = rankString.split(' ')[0];
   if (!tierString) return null;
   

@@ -75,8 +75,6 @@ const Table = <R extends RowData>({ columns, data, rowKey }: TableProps<R>): Rea
   }
 
   useEffect(() => {
-    console.log(sortState);
-
     const sortedRows = [...data].sort((a, b) => {
       const currentColumn = getCurrentSortColumn();
 
@@ -84,8 +82,6 @@ const Table = <R extends RowData>({ columns, data, rowKey }: TableProps<R>): Rea
 
       const val1 = getSortKey(a);
       const val2 = getSortKey(b);
-      
-      console.log(val1)
 
       if (typeof val1 === 'string' && typeof val2 === 'string') {
         return sortState.type === SortType.ASCENDING ? val1.localeCompare(val2) : val2.localeCompare(val1);
@@ -94,8 +90,6 @@ const Table = <R extends RowData>({ columns, data, rowKey }: TableProps<R>): Rea
       }
       return 0;
     }).map((rowData) => buildRowProps(rowData, columns, rowKey));
-
-    console.log(sortedRows)
 
     setRows(sortedRows)
   }, [sortState, data, columns, rowKey]);
