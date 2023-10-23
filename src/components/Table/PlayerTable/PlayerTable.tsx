@@ -17,9 +17,10 @@ const columns: ColumnProps<RowData<LeaderboardPlayerData>>[] = [
   { label: 'Place', key: 'place' },
   { label: 'Player', key: 'name', displayFunction: (r) => {
     const avatarUrl = r.discordAvatarUrl?.value;
+    const summonerName = r.name.value;
     return <div className='playerTable__playerCell'>
     {avatarUrl ? <Avatar src={avatarUrl} /> : null}
-    <span>{r.name.value}</span>
+    <a href={`https://www.op.gg/summoners/na/${encodeURIComponent(summonerName)}`} target='_blank' rel='noopener noreferrer'>{r.name.value}</a>
     </div>
   } },
   { label: 'Wins', key: 'wins' },
