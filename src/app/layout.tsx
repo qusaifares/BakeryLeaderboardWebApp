@@ -17,6 +17,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <title>Bakery Leaderboard</title>
+        <meta name="description" content="Leaderboard and ranked stat tracking for Bakery server"></meta>
+      </head>
       <body className={inter.className}>
         <Header />
         <main className="app">
