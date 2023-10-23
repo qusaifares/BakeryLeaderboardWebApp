@@ -1,0 +1,43 @@
+.table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  background-color: #14151C;
+  color: #FFF;
+  font-size: .8rem;
+  thead {
+    background-color: #222731;
+    color: rgba($color: #FFF, $alpha: 0.6);
+  }
+  tr {
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba($color: #FFF, $alpha: 0.1);
+    height: 2.5rem;
+  }
+
+  th, td {
+    padding-right: 2rem;
+    padding-left: 1rem;
+  }
+
+  th {
+    text-align: left;
+    cursor: pointer;
+
+    span {
+      color: transparent;
+    }
+
+    &.table__columnLabelSortKey {
+      span {
+        color: inherit;
+      }
+    }
+
+  }
+
+  td {
+    text-align: left;
+  }
+
+}

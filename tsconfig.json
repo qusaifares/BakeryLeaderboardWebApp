@@ -19,9 +19,10 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@bakery-leaderboard-ts-sdk": ["./resources/BakeryLeaderboardServiceModel/output/model/typescript/apis"],
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/Table/PlayerTable"],
   "exclude": ["node_modules"]
 }
