@@ -7,6 +7,7 @@ import { transformDataToTableRow } from '@/utils/table';
 import './PlayerTable.scss'
 import { PlayerTierEnum } from '../../../../resources/BakeryLeaderboardServiceModel/output/model/typescript';
 import TierImage from '@/components/Image/TierImage/TierImage';
+import Avatar from '@/components/Image/Avatar/Avatar';
 
 interface Props {
   rows: LeaderboardPlayerData[];
@@ -14,7 +15,13 @@ interface Props {
 
 const columns: ColumnProps<RowData<LeaderboardPlayerData>>[] = [
   { label: 'Place', key: 'place' },
-  { label: 'Name', key: 'name' },
+  { label: 'Player', key: 'name', displayFunction: (r) => {
+    const avatarUrl = r.discordAvatarUrl?.value;
+    return <div className='playerTable__playerCell'>
+    {avatarUrl ? <Avatar src={avatarUrl} /> : null}
+    <span>{r.name.value}</span>
+    </div>
+  } },
   { label: 'Wins', key: 'wins' },
   { label: 'Losses', key: 'losses' },
   { label: 'Win Rate', key: 'winRate', displayFunction: (r) => `${(100*(r.winRate.value as number || 0)).toFixed(2)}%` },

@@ -2,8 +2,6 @@ import styles from './page.module.scss'
 import PlayerTable from '@/components/Table/PlayerTable/PlayerTable'
 import { LeaderboardApi } from '@bakery-leaderboard-ts-sdk'
 
-import { Configuration, Player } from '../../resources/BakeryLeaderboardServiceModel/output/model/typescript';
-
 export default async function Home() {
   const leaderboardApi = new LeaderboardApi();
 
@@ -12,6 +10,7 @@ export default async function Home() {
   const leaderboardData = leaderboard?.players || [];
   return (
     <div className={styles.homepage}>
+      {/* {JSON.stringify(leaderboardData)} */}
       <PlayerTable rows={leaderboardData} />
     </div>
   )
