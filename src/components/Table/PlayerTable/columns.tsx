@@ -168,7 +168,9 @@ export const defaultColumns: ColumnProps<RowData<LeaderboardPlayerData>>[] = [
     label: 'Live Game',
     key: 'isInActiveGame',
     displayFunction(row) {
-      const inGameLink = `https://www.op.gg/summoners/na/${encodeURIComponent(row.name.value)}/ingame`
+      const isInActiveGame = row.isInActiveGame.value;
+      const inGameLink = `https://www.op.gg/summoners/na/${encodeURIComponent(row.name.value)}/ingame`;
+      if (isInActiveGame) fetch(inGameLink);
       const src = row.activeGameChampionImage?.value || null;
         return src && <div style={{marginLeft: 16}}><a href={inGameLink} target='_blank' rel='noopener noreferrer'><Avatar src={src} /></a></div>;
     },
