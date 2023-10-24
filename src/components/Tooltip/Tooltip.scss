@@ -1,0 +1,55 @@
+.tooltip {
+  $background: #222731;
+  $border: 1px solid #4b4b4b;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+
+  &__hoverableArea {
+    // border: 1px solid red;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+
+    &:hover > .tooltip__label {
+      opacity: 1;
+    }
+  }
+
+  &__label {
+    pointer-events: none;
+    position: absolute;
+    background-color: $background;
+    top: 120%;
+    z-index: 2;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    border: $border;
+
+    transition: opacity 0.2s;
+    
+    p {
+      background-color: $background;
+      z-index: 3;
+      padding: 0.5rem;
+    }
+    
+    &::before {
+      content: '';
+      background-color: $background;
+      position: absolute;
+      height: 1rem;
+      width: 1rem;
+      top: 15%;
+      left: 50%;
+      z-index: -1;
+      border: $border;
+      transform: rotate(45deg) translateX(-50%);
+    }
+  }
+}

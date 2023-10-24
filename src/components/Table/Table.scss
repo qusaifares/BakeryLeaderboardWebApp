@@ -1,11 +1,13 @@
 .table {
+  $background: #14151C;
+  $background-header: #222731;
   border-collapse: collapse;
   border-spacing: 0;
-  background-color: #14151C;
+  background-color: $background;
   color: #FFF;
   font-size: .8rem;
   thead {
-    background-color: #222731;
+    background-color: $background-header;
     color: rgba($color: #FFF, $alpha: 0.6);
   }
   tr {

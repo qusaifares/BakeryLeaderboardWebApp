@@ -6,7 +6,12 @@ import { Configuration } from '../../resources/BakeryLeaderboardServiceModel/out
 export default async function Home() {
   const leaderboardApi = new LeaderboardApi(new Configuration({
     fetchApi(input, init) {
-        return fetch(input, { ...init, next: { revalidate: 60 } });
+      const { timeZone } = Intl.DateTimeFormat().resolvedOptions(); // e.g. "America/New_York"
+        return fetch(input, {
+          ...init,
+          headers: { ...init?.headers, 'X-User-Timezone': timeZone },
+          next: { revalidate: 60 }
+        });
     },
   }));
 

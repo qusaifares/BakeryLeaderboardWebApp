@@ -3,6 +3,7 @@ import { ColumnProps, RowData } from "../Table";
 import Avatar from "@/components/Image/Avatar/Avatar";
 import { PlayerTierEnum } from "../../../../resources/BakeryLeaderboardServiceModel/output/model/typescript";
 import TierImage from "@/components/Image/TierImage/TierImage";
+import Tooltip from "@/components/Tooltip/Tooltip";
 
 export enum PlayerTableType {
   RESULTS = 'RESULTS',
@@ -36,7 +37,8 @@ const getColumns = (additionalColumns: ColumnProps<RowData<LeaderboardPlayerData
     displayFunction: (row) => {
       const v = row.rank.value;
       const tier = row.tier.value as PlayerTierEnum;
-      return <div className='playerTable__tierCell'>
+      return <div className='playerTable__tierCell' style={{position: 'relative'}}>
+        <Tooltip label={row.rankLastUpdated.value} />
           {tier && <TierImage tier={tier} width={128} height={72} />}
           <p style={{ marginLeft: '0.25rem' }}>{v}</p>
         </div>
