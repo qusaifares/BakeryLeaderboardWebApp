@@ -10,11 +10,11 @@ export type RowData<T extends Record<string, any> = Record<string, any>> = {
   [K in keyof T]: CellData<T[K]>;
 }
 
-export interface ColumnProps<T extends RowData, K extends ColumnKey<T> = ColumnKey<T>> {
+export interface ColumnProps<R extends RowData, K extends ColumnKey<R> = ColumnKey<R>> {
   label: string;
   key: K;
-  displayFunction?: (value: RowData[K]['value']) => ReactNode;
-  sortKey?: (value: T) => string | number;
+  displayFunction?: (row: R) => ReactNode;
+  sortKey?: (row: R) => string | number;
 }
 
 export interface CellData<T = any> {

@@ -14,15 +14,22 @@ interface Props {
 }
 
 const columns: ColumnProps<RowData<LeaderboardPlayerData>>[] = [
-  { label: 'Place', key: 'place' },
-  { label: 'Player', key: 'name', displayFunction: (r) => {
-    const avatarUrl = r.discordAvatarUrl?.value;
-    const summonerName = r.name.value;
-    return <div className='playerTable__playerCell'>
-    {avatarUrl ? <Avatar src={avatarUrl} /> : null}
-    <a href={`https://www.op.gg/summoners/na/${encodeURIComponent(summonerName)}`} target='_blank' rel='noopener noreferrer'>{r.name.value}</a>
-    </div>
-  } },
+  {
+    label: 'Place',
+    key: 'place'
+  },
+  {
+    label: 'Player',
+    key: 'name',
+    displayFunction: (r) => {
+      const avatarUrl = r.discordAvatarUrl?.value;
+      const summonerName = r.name.value;
+      return <div className='playerTable__playerCell'>
+      {avatarUrl ? <Avatar src={avatarUrl} /> : null}
+      <a href={`https://www.op.gg/summoners/na/${encodeURIComponent(summonerName)}`} target='_blank' rel='noopener noreferrer'>{r.name.value}</a>
+      </div>
+    }
+  },
   {
     label: 'Wins',
     key: 'wins',
@@ -39,32 +46,33 @@ const columns: ColumnProps<RowData<LeaderboardPlayerData>>[] = [
   {
     label: 'KDA',
     key: 'kills',
-    displayFunction(r) {
-      const kills = r.kills?.value || 0;
-      const deaths = r.deaths?.value || 1;
-      const assists = r.assists?.value || 0;
+    displayFunction(row) {
+      const kills = row.kills?.value || 0;
+      const deaths = row.deaths?.value || 1;
+      const assists = row.assists?.value || 0;
       const kda = (kills + assists)/deaths;
       return `${kda.toFixed(1)}`
     },
-    sortKey(r) {
-      const kills = r.kills?.value || 0;
-      const deaths = r.deaths?.value || 1;
-      const assists = r.assists?.value || 0;
+    sortKey(row) {
+      const kills = row.kills?.value || 0;
+      const deaths = row.deaths?.value || 1;
+      const assists = row.assists?.value || 0;
       const kda = (kills + assists)/deaths;
-      
+
       return kda;
     },
   },
-  { label: 'Rank', key: 'rank',
-  displayFunction: (r) => {
-    const v = r.rank.value;
-    const tier = r.tier.value as PlayerTierEnum;
-    return <div className='playerTable__tierCell'>
-        {tier && <TierImage tier={tier} width={128} height={72} />}
-        <p style={{marginLeft: '0.25rem'}}>{v}</p>
-      </div>
+  {
+    label: 'Rank', key: 'rank',
+    displayFunction: (row) => {
+      const v = row.rank.value;
+      const tier = row.tier.value as PlayerTierEnum;
+      return <div className='playerTable__tierCell'>
+          {tier && <TierImage tier={tier} width={128} height={72} />}
+          <p style={{marginLeft: '0.25rem'}}>{v}</p>
+        </div>
     },
-    sortKey: (r) => r.rankValue.value
+    sortKey: (row) => row.rankValue.value
   },
   // { label: 'Tier', key: 'tier', displayFunction: (r) => {
   // const v = r.tier.value;
