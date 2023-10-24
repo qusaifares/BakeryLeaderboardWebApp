@@ -1,4 +1,21 @@
 .playerTable {
+  &__dropdownContainer {
+    margin: 1rem auto 1rem 0;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__dropdown {
+    background-color: #2F2F2F;
+    color: #fff;
+    padding: 0.5rem 0.25rem;
+    border: 1px solid rgba($color: #fff, $alpha: 0.2);
+
+    &:focus {
+      outline: none;
+    }
+  }
+
   &__tierCell {
     display: flex;
     align-items: center;
@@ -10,6 +27,15 @@
 
     .avatar {
       margin-right: 0.5rem;
+    }
+  }
+
+  &__streak, &__winRate {
+    &-positive {
+      color: #98ea98;
+    }
+    &-negative {
+      color: #f18e8e;
     }
   }
 }

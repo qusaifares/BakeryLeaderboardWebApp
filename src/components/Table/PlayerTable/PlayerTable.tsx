@@ -4,94 +4,36 @@ import Table, { CellData, ColumnProps, RowData } from '../Table';
 import { LeaderboardPlayerData } from '@/types/data/leaderboard';
 import { transformDataToTableRow } from '@/utils/table';
 
-import './PlayerTable.scss'
-import { PlayerTierEnum } from '../../../../resources/BakeryLeaderboardServiceModel/output/model/typescript';
-import TierImage from '@/components/Image/TierImage/TierImage';
-import Avatar from '@/components/Image/Avatar/Avatar';
+import './PlayerTable.scss';
+import { DROPDOWN_LABEL_BY_TABLE_TYPE, PlayerTableType, getColumnsByPlayerTableType } from './columns';
+import { ChangeEventHandler, useState } from 'react';
 
 interface Props {
   rows: LeaderboardPlayerData[];
 }
 
-const columns: ColumnProps<RowData<LeaderboardPlayerData>>[] = [
-  {
-    label: 'Place',
-    key: 'place'
-  },
-  {
-    label: 'Player',
-    key: 'name',
-    displayFunction: (r) => {
-      const avatarUrl = r.discordAvatarUrl?.value;
-      const summonerName = r.name.value;
-      return <div className='playerTable__playerCell'>
-      {avatarUrl ? <Avatar src={avatarUrl} /> : null}
-      <a href={`https://www.op.gg/summoners/na/${encodeURIComponent(summonerName)}`} target='_blank' rel='noopener noreferrer'>{r.name.value}</a>
-      </div>
-    }
-  },
-  {
-    label: 'Wins',
-    key: 'wins',
-  },
-  {
-    label: 'Losses',
-    key: 'losses',
-  },
-  {
-    label: 'Win Rate',
-    key: 'winRate',
-    displayFunction: (r) => `${(100*(r.winRate.value as number || 0)).toFixed(2)}%`
-  },
-  {
-    label: 'KDA',
-    key: 'kills',
-    displayFunction(row) {
-      const kills = row.kills?.value || 0;
-      const deaths = row.deaths?.value || 1;
-      const assists = row.assists?.value || 0;
-      const kda = (kills + assists)/deaths;
-      return `${kda.toFixed(1)}`
-    },
-    sortKey(row) {
-      const kills = row.kills?.value || 0;
-      const deaths = row.deaths?.value || 1;
-      const assists = row.assists?.value || 0;
-      const kda = (kills + assists)/deaths;
-
-      return kda;
-    },
-  },
-  {
-    label: 'Rank', key: 'rank',
-    displayFunction: (row) => {
-      const v = row.rank.value;
-      const tier = row.tier.value as PlayerTierEnum;
-      return <div className='playerTable__tierCell'>
-          {tier && <TierImage tier={tier} width={128} height={72} />}
-          <p style={{marginLeft: '0.25rem'}}>{v}</p>
-        </div>
-    },
-    sortKey: (row) => row.rankValue.value
-  },
-  // { label: 'Tier', key: 'tier', displayFunction: (r) => {
-  // const v = r.tier.value;
-  // return <div className='playerTable__tierCell'>
-  //   {v && <TierImage tier={v as PlayerTierEnum} width={128} height={72} />}
-  //   <p style={{marginLeft: '0.25rem'}}>{capitalized((v || '').toLowerCase())}</p>
-  // </div>
-  // }},
-  // { label: 'Division', key: 'division' },
-  // { label: 'LP', key: 'leaguePoints' },
-  { label: 'Current Streak', key: 'currentStreak' },
-];
-
-
+const tableTypes: PlayerTableType[] = [PlayerTableType.RESULTS, PlayerTableType.COMBAT_TOTAL, PlayerTableType.COMBAT_PER_GAME];
+const DEFAULT_TABLE_TYPE = PlayerTableType.RESULTS;
 
 const PlayerTable: React.FC<Props> = ({ rows }) => {
+  const [tableType, setTableType] = useState<PlayerTableType>(DEFAULT_TABLE_TYPE);
   const data = rows.map(transformDataToTableRow);
 
-  return <Table columns={columns} data={data} rowKey={(r) => r.id.value} />;
+  const columns = getColumnsByPlayerTableType(tableType);
+
+  const handleDropdownChange: ChangeEventHandler<HTMLSelectElement> = e => {
+    console.log('Selected:', e.target.value);
+    setTableType(e.target.value as PlayerTableType)
+  }
+
+  return <div className='playerTable'>
+    <div className="playerTable__dropdownContainer">
+      <select onChange={handleDropdownChange} name="playerTable__dropdown" id="playerTable__dropdown" className="playerTable__dropdown" defaultValue={tableType}>
+        {tableTypes.map(t => <option value={t} key={t}>{DROPDOWN_LABEL_BY_TABLE_TYPE[t as PlayerTableType]}</option>)}
+      </select>
+    </div>
+      <Table columns={columns} data={data} rowKey={(r) => r.id.value} />
+    </div>;
 };
 
 export default PlayerTable;
