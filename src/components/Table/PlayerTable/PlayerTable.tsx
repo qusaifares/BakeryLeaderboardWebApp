@@ -23,9 +23,38 @@ const columns: ColumnProps<RowData<LeaderboardPlayerData>>[] = [
     <a href={`https://www.op.gg/summoners/na/${encodeURIComponent(summonerName)}`} target='_blank' rel='noopener noreferrer'>{r.name.value}</a>
     </div>
   } },
-  { label: 'Wins', key: 'wins' },
-  { label: 'Losses', key: 'losses' },
-  { label: 'Win Rate', key: 'winRate', displayFunction: (r) => `${(100*(r.winRate.value as number || 0)).toFixed(2)}%` },
+  {
+    label: 'Wins',
+    key: 'wins',
+  },
+  {
+    label: 'Losses',
+    key: 'losses',
+  },
+  {
+    label: 'Win Rate',
+    key: 'winRate',
+    displayFunction: (r) => `${(100*(r.winRate.value as number || 0)).toFixed(2)}%`
+  },
+  {
+    label: 'KDA',
+    key: 'kills',
+    displayFunction(r) {
+      const kills = r.kills?.value || 0;
+      const deaths = r.deaths?.value || 1;
+      const assists = r.assists?.value || 0;
+      const kda = (kills + assists)/deaths;
+      return `${kda.toFixed(1)}`
+    },
+    sortKey(r) {
+      const kills = r.kills?.value || 0;
+      const deaths = r.deaths?.value || 1;
+      const assists = r.assists?.value || 0;
+      const kda = (kills + assists)/deaths;
+      
+      return kda;
+    },
+  },
   { label: 'Rank', key: 'rank',
   displayFunction: (r) => {
     const v = r.rank.value;
@@ -35,7 +64,7 @@ const columns: ColumnProps<RowData<LeaderboardPlayerData>>[] = [
         <p style={{marginLeft: '0.25rem'}}>{v}</p>
       </div>
     },
-    sortKey: (v) => v.rankValue.value
+    sortKey: (r) => r.rankValue.value
   },
   // { label: 'Tier', key: 'tier', displayFunction: (r) => {
   // const v = r.tier.value;
