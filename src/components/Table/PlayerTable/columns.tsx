@@ -46,15 +46,6 @@ const getColumns = (additionalColumns: ColumnProps<RowData<LeaderboardPlayerData
     sortKey: (row) => row.rankValue.value
   },
   ...additionalColumns,
-  {
-    label: 'Live Game',
-    key: 'isInActiveGame',
-    displayFunction(row) {
-      const inGameLink = `https://www.op.gg/summoners/na/${encodeURIComponent(row.name.value)}/ingame`
-      const src = row.activeGameChampionImage?.value || null;
-        return src && <div style={{marginLeft: 16}}><a href={inGameLink} target='_blank' rel='noopener noreferrer'><Avatar src={src} /></a></div>;
-    },
-  }
 ];
 
 
@@ -149,10 +140,6 @@ export const combatPerGameColumns: ColumnProps<RowData<LeaderboardPlayerData>>[]
 
 export const defaultColumns: ColumnProps<RowData<LeaderboardPlayerData>>[] = [
   {
-    label: 'Games',
-    key: 'gamesPlayed',
-  },
-  {
     label: 'Wins',
     key: 'wins',
   },
@@ -176,6 +163,15 @@ export const defaultColumns: ColumnProps<RowData<LeaderboardPlayerData>>[] = [
       const streakString = streak > 0 ? `+${streak}` : `${streak}`;
       return <span className={`playerTable__streak-${streak > 0 ? 'positive' : streak === 0 ? 'neutral' : 'negative'}`}>{streakString}</span>
     }
+  },
+  {
+    label: 'Live Game',
+    key: 'isInActiveGame',
+    displayFunction(row) {
+      const inGameLink = `https://www.op.gg/summoners/na/${encodeURIComponent(row.name.value)}/ingame`
+      const src = row.activeGameChampionImage?.value || null;
+        return src && <div style={{marginLeft: 16}}><a href={inGameLink} target='_blank' rel='noopener noreferrer'><Avatar src={src} /></a></div>;
+    },
   },
 ];
 
