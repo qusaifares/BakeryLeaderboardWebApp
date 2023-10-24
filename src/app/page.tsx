@@ -10,7 +10,8 @@ export default async function Home() {
         return fetch(input, {
           ...init,
           headers: { ...init?.headers, 'X-User-Timezone': timeZone },
-          next: { revalidate: 60 }
+          next: { revalidate: 60 },
+          cache: 'default'
         });
     },
   }));
