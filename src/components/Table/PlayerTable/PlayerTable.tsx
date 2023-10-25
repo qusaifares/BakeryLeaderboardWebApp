@@ -6,7 +6,8 @@ import { transformDataToTableRow } from '@/utils/table';
 
 import './PlayerTable.scss';
 import { DROPDOWN_LABEL_BY_TABLE_TYPE, PlayerTableType, getColumnsByPlayerTableType } from './columns';
-import { ChangeEventHandler, useState } from 'react';
+import { ChangeEventHandler, useEffect, useState } from 'react';
+import { leaderboardApi } from '@/utils/leaderboardApi';
 
 interface Props {
   rows: LeaderboardPlayerData[];
@@ -15,8 +16,10 @@ interface Props {
 const tableTypes: PlayerTableType[] = [PlayerTableType.RESULTS, PlayerTableType.COMBAT_TOTAL, PlayerTableType.COMBAT_PER_GAME];
 const DEFAULT_TABLE_TYPE = PlayerTableType.RESULTS;
 
-const PlayerTable: React.FC<Props> = ({ rows }) => {
+const PlayerTable: React.FC<Props> = ({ rows: initialRows }) => {
   const [tableType, setTableType] = useState<PlayerTableType>(DEFAULT_TABLE_TYPE);
+  const [rows, setRows] = useState<LeaderboardPlayerData[]>(initialRows);
+  const [fetchTimer, setFetchTimer] = useState<NodeJS.Timeout>();
   const data = rows.map(transformDataToTableRow);
 
   const columns = getColumnsByPlayerTableType(tableType);
@@ -25,6 +28,32 @@ const PlayerTable: React.FC<Props> = ({ rows }) => {
     console.log('Selected:', e.target.value);
     setTableType(e.target.value as PlayerTableType)
   }
+
+  const refreshRows = async () => {
+    const leaderboard = await leaderboardApi.getLeaderboard();
+
+    if (leaderboard.players) {
+      setRows(leaderboard.players);
+    }
+  }
+
+  useEffect(() => {
+    refreshRows();
+    if (!fetchTimer) {
+      const timer = setInterval(() => {
+        refreshRows();
+      }, 60000);
+
+      setFetchTimer(timer);
+    }
+
+    return () => {
+      if (fetchTimer) {
+        clearInterval(fetchTimer);
+        setFetchTimer(undefined);
+      }
+    }
+  }, []);
 
   return <div className='playerTable'>
     <div className="playerTable__dropdownContainer">
