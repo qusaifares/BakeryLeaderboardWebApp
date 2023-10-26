@@ -30,7 +30,9 @@ const PlayerTable: React.FC<Props> = ({ rows: initialRows }) => {
   }
 
   const refreshRows = async () => {
-    const leaderboard = await leaderboardApi.getLeaderboard();
+    const res = await fetch('/api/leaderboard');
+
+    const leaderboard = await res.json();
 
     if (leaderboard.players) {
       setRows(leaderboard.players);
