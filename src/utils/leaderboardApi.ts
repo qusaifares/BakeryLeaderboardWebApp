@@ -7,7 +7,7 @@ export const leaderboardApi = new LeaderboardApi(new Configuration({
         ...init,
         // headers: { ...init?.headers, 'X-User-Timezone': timeZone },
         // next: { revalidate: 60 },
-        cache: 'default',
+        cache: 'no-cache',
       });
   },
 }));
