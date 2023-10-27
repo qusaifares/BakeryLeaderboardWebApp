@@ -39,7 +39,7 @@ const PlayerTable: React.FC<Props> = ({ rows: initialRows }) => {
     const { players, timestamp } = leaderboard;
 
     if (timestamp) {
-      console.log(`Timestamp: ${Math.floor(Date.now() - timestamp)} seconds ago.`)
+      console.log(`Timestamp: ${Math.floor((Date.now() - timestamp)/1000)} seconds ago.`)
     }
 
     if (leaderboard.players) {
