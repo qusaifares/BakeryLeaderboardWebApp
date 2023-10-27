@@ -30,8 +30,9 @@ const PlayerTable: React.FC<Props> = ({ rows: initialRows }) => {
   }
 
   const refreshRows = async () => {
-    const signal = new AbortSignal();
-    const res = await fetch('/api/leaderboard', { signal, next: { revalidate: 20 } });
+    const { signal } = new AbortController();
+
+    const res = await fetch('/api/leaderboard', { signal });
 
     const leaderboard = await res.json();
 
