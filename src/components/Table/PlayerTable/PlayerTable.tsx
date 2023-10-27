@@ -8,6 +8,7 @@ import './PlayerTable.scss';
 import { DROPDOWN_LABEL_BY_TABLE_TYPE, PlayerTableType, getColumnsByPlayerTableType } from './columns';
 import { ChangeEventHandler, useEffect, useState } from 'react';
 import { leaderboardApi } from '@/utils/leaderboardApi';
+import { LeaderboardResponse } from '../../../../resources/BakeryLeaderboardServiceModel/output/model/typescript';
 
 interface Props {
   rows: LeaderboardPlayerData[];
@@ -32,9 +33,14 @@ const PlayerTable: React.FC<Props> = ({ rows: initialRows }) => {
   const refreshRows = async () => {
     const { signal } = new AbortController();
 
-    const res = await fetch('/api/leaderboard', { signal });
+    const res = await fetch('/api/leaderboard', { signal, cache: 'no-cache' });
 
-    const leaderboard = await res.json();
+    const leaderboard: LeaderboardResponse = await res.json();
+    const { players, timestamp } = leaderboard;
+
+    if (timestamp) {
+      console.log(`Timestamp: ${Math.floor(Date.now() - timestamp)} seconds ago.`)
+    }
 
     if (leaderboard.players) {
       setRows(leaderboard.players);
