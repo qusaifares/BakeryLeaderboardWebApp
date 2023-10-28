@@ -33,9 +33,8 @@ const PlayerTable: React.FC<Props> = ({ rows: initialRows }) => {
   const refreshRows = async () => {
     const { signal } = new AbortController();
 
-    const res = await fetch('/api/leaderboard', {
+    const res = await fetch(`/api/leaderboard?timestamp=${Date.now()}`, {
       signal,
-      next: { revalidate: 0 },
       cache: 'no-store',
     });
 
