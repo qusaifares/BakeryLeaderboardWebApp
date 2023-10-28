@@ -6,7 +6,6 @@ export const leaderboardApi = new LeaderboardApi(new Configuration({
       return fetch(input, {
         ...init,
         // headers: { ...init?.headers, 'X-User-Timezone': timeZone },
-        next: { revalidate: 0 },
         cache: 'no-store',
       });
   },
