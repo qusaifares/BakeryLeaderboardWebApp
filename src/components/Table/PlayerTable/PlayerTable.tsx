@@ -33,7 +33,11 @@ const PlayerTable: React.FC<Props> = ({ rows: initialRows }) => {
   const refreshRows = async () => {
     const { signal } = new AbortController();
 
-    const res = await fetch('/api/leaderboard', { signal, cache: 'no-cache' });
+    const res = await fetch('/api/leaderboard', {
+      signal,
+      next: { revalidate: 0 },
+      cache: 'no-store',
+    });
 
     const leaderboard: LeaderboardResponse = await res.json();
     const { players, timestamp } = leaderboard;
@@ -42,8 +46,8 @@ const PlayerTable: React.FC<Props> = ({ rows: initialRows }) => {
       console.log(`Timestamp: ${Math.floor((Date.now() - timestamp)/1000)} seconds ago.`)
     }
 
-    if (leaderboard.players) {
-      setRows(leaderboard.players);
+    if (players) {
+      setRows(players);
     }
   }
 
