@@ -1,4 +1,4 @@
-import { PlayerDivisionEnum, PlayerTierEnum } from "../../resources/BakeryLeaderboardServiceModel/output/model/typescript";
+import { PlayerDivisionEnum, PlayerTierEnum } from "../../resources/BakeryLeaderboardServiceModel/output/model/typescript/leaderboard";
 import { capitalized } from "./string";
 
 export function extractTierFromRankString(rankString: string): PlayerTierEnum | null {

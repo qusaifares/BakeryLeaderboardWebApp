@@ -1,6 +1,6 @@
 import React from 'react';
 import './TierImage.scss';
-import { PlayerTierEnum } from '../../../../resources/BakeryLeaderboardServiceModel/output/model/typescript';
+import { PlayerTierEnum } from '../../../../resources/BakeryLeaderboardServiceModel/output/model/typescript/leaderboard';
 import { getEmblemImageUrlByTier } from '@/utils/riotAssetUrl';
 import Image from 'next/image';
 

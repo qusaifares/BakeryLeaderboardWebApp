@@ -1,6 +1,15 @@
-import { Configuration, LeaderboardApi } from "../../resources/BakeryLeaderboardServiceModel/output/model/typescript";
+import { Configuration, LeaderboardApi } from "../../resources/BakeryLeaderboardServiceModel/output/model/typescript/leaderboard";
 
-export const leaderboardApi = new LeaderboardApi(new Configuration({
+export const serverSideLeaderboardApi = new LeaderboardApi(new Configuration({
+  fetchApi(input, init) {
+    const { timeZone } = Intl.DateTimeFormat().resolvedOptions(); // e.g. "America/New_York"
+      return fetch(input, {
+        ...init,
+        // headers: { ...init?.headers, 'X-User-Timezone': timeZone },
+      });
+  },
+}));
+export const clientSideLeaderboardApi = new LeaderboardApi(new Configuration({
   fetchApi(input, init) {
     const { timeZone } = Intl.DateTimeFormat().resolvedOptions(); // e.g. "America/New_York"
       return fetch(input, {

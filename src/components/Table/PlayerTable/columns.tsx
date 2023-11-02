@@ -1,7 +1,7 @@
 import { LeaderboardPlayerData } from "@/types/data/leaderboard";
 import { ColumnProps, RowData } from "../Table";
 import Avatar from "@/components/Image/Avatar/Avatar";
-import { PlayerTierEnum } from "../../../../resources/BakeryLeaderboardServiceModel/output/model/typescript";
+import { PlayerTierEnum } from "../../../../resources/BakeryLeaderboardServiceModel/output/model/typescript/leaderboard";
 import TierImage from "@/components/Image/TierImage/TierImage";
 import Tooltip from "@/components/Tooltip/Tooltip";
 

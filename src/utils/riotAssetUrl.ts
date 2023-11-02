@@ -1,4 +1,4 @@
-import { PlayerTierEnum } from "../../resources/BakeryLeaderboardServiceModel/output/model/typescript";
+import { PlayerTierEnum } from "../../resources/BakeryLeaderboardServiceModel/output/model/typescript/leaderboard";
 
 export const getEmblemImageUrlByTier = (tier: PlayerTierEnum) => {
   if (!tier) return;
