@@ -1,7 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   crossOrigin: 'use-credentials',
-  
+  async headers() {
+    return [
+      {
+        source: '',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' }
+        ]
+      }]
+  },
   images: {
     remotePatterns: [
       {
