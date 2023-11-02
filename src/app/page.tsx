@@ -12,7 +12,7 @@ export default async function Home() {
   return (
     <div className={styles.homepage}>
       {/* {JSON.stringify(leaderboardData)} */}
-      <PlayerTable rows={leaderboardData} initialResponseTimestamp={dataTimestamp} />
+      <PlayerTable rows={leaderboardData} initialResponseTimestamp={dataTimestamp || 0} />
     </div>
   )
 }
