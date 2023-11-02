@@ -1,10 +1,12 @@
 import { activeGameApi } from "@/utils/activeGameApi";
 import { NextRequest, NextResponse } from "next/server";
+import { ActiveGamesResponse } from "../../../../resources/BakeryLeaderboardServiceModel/output/model/typescript/active-game";
 
 export async function GET(request: NextRequest) {
-  const activeGamesResponse = await activeGameApi.getAllActiveGames();
+  // const activeGamesResponse = await activeGameApi.getAllActiveGames();
 
-  return NextResponse.json(activeGamesResponse, {
+  const activeGamesResponse: ActiveGamesResponse = { activeGames: [], timestamp: Date.now() }
+  return Response.json(activeGamesResponse, {
     headers: {
       'Cache-Control': 'public, s-maxage=0',
       'CDN-Cache-Control': 'public, s-maxage=0',
