@@ -8,9 +8,9 @@ export async function GET(request: NextRequest) {
   const activeGamesResponse: ActiveGamesResponse = { activeGames: [], timestamp: Date.now() }
   return Response.json(activeGamesResponse, {
     headers: {
-      'Cache-Control': 'public, s-maxage=0',
-      'CDN-Cache-Control': 'public, s-maxage=0',
-      'Vercel-CDN-Cache-Control': 'public, s-maxage=0',
+      'Cache-Control': 'public, max-age=0',
+      'CDN-Cache-Control': 'public, max-age=0',
+      'Vercel-CDN-Cache-Control': 'public, max-age=0',
     }
   });
 }
