@@ -71,34 +71,34 @@ const PlayerTable: React.FC<Props> = ({ rows: initialRows, initialResponseTimest
   }
 
   const refreshLeaderboardData = async () => {
-    // const { signal } = new AbortController();
+    const { signal } = new AbortController();
 
-    // const res = await fetch(`/api/leaderboard`, {
-    //   signal,
-    // });
+    const res = await fetch(`/api/leaderboard`, {
+      signal,
+    });
 
-    // const leaderboard: LeaderboardResponse = await res.json();
-    // const { players, timestamp } = leaderboard;
+    const leaderboard: LeaderboardResponse = await res.json();
+    const { players, timestamp } = leaderboard;
 
-    // if (timestamp) {
-    //   console.log(`Timestamp: ${Math.floor((Date.now() - timestamp)/1000)} seconds ago.`)
-    //   if (timestamp < responseTimestamp) return;
-    // }
+    if (timestamp) {
+      console.log(`Timestamp: ${Math.floor((Date.now() - timestamp)/1000)} seconds ago.`)
+      if (timestamp < responseTimestamp) return;
+    }
 
 
-    // if (players) {
-    //   const newPlayers = players.map((player) => {
-    //     const existingRow = rows.find(row => row.id === player.id);
+    if (players) {
+      const newPlayers = players.map((player) => {
+        const existingRow = rows.find(row => row.id === player.id);
 
-    //     if (!existingRow) return player;
+        if (!existingRow) return player;
 
-    //     const { isInActiveGame, activeGameChampionImage } = existingRow;
+        const { isInActiveGame, activeGameChampionImage } = existingRow;
 
-    //     return { ...player, isInActiveGame, activeGameChampionImage };
-    //   })
-    //   if (timestamp) setResponseTimestamp(timestamp);
-    //   setRows(newPlayers);
-    // }
+        return { ...player, isInActiveGame, activeGameChampionImage };
+      })
+      if (timestamp) setResponseTimestamp(timestamp);
+      setRows(newPlayers);
+    }
   }
 
   useEffect(() => {
