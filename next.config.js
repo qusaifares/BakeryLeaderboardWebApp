@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 
 const NO_CACHE_HEADERS = [
-  { key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' },
-  { key: 'CDN-Cache-Control', value: 'public, max-age=0, must-revalidate' },
-  { key: 'Vercel-CDN-Cache-Control', value: 'public, max-age=0, must-revalidate' },
+  { key: 'Cache-Control', value: 'no-cache' },
+  { key: 'CDN-Cache-Control', value: 'no-cache' },
+  { key: 'Vercel-CDN-Cache-Control', value: 'no-cache' },
 ]
 
 const nextConfig = {
