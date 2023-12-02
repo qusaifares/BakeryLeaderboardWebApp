@@ -114,7 +114,7 @@ const PlayerTable: React.FC<Props> = ({ rows: initialRows, initialResponseTimest
 
     if (!fetchActiveGamesTimer) {
       const timer = setInterval(() => {
-        refreshLeaderboardData();
+        // refreshLeaderboardData();
       }, LIVE_GAME_REFRESH_RATE_SECONDS * 1000);
 
       setFetchActiveGamesTimer(timer);
