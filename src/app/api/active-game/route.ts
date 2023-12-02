@@ -6,7 +6,7 @@ export async function GET(request: NextRequest) {
   // const activeGamesResponse = await activeGameApi.getAllActiveGames();
 
   const activeGamesResponse: ActiveGamesResponse = { activeGames: [], timestamp: Date.now() }
-  return Response.json(activeGamesResponse, {
+  return NextResponse.json(activeGamesResponse, {
     headers: {
       'Cache-Control': 'no-cache',
       'CDN-Cache-Control': 'no-cache',
