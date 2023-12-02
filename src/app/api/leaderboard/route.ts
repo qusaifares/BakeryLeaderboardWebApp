@@ -7,7 +7,7 @@ export const revalidate = 0
 export const fetchCache = 'force-no-store'
 export const runtime = 'nodejs'
 export const preferredRegion = 'auto'
-export const maxDuration = 20
+export const maxDuration = 10
 
 export async function GET() {
   const leaderboard = await clientSideLeaderboardApi.getLeaderboard();
