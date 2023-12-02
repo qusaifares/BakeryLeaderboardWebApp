@@ -9,6 +9,7 @@ import { DROPDOWN_LABEL_BY_TABLE_TYPE, PlayerTableType, getColumnsByPlayerTableT
 import { ChangeEventHandler, useEffect, useState } from 'react';
 import { LeaderboardResponse, Player } from '../../../../resources/BakeryLeaderboardServiceModel/output/model/typescript/leaderboard';
 import { ActiveGame, ActiveGamesResponse } from '../../../../resources/BakeryLeaderboardServiceModel/output/model/typescript/active-game';
+import { revalidatePath } from 'next/cache';
 
 interface Props {
   rows: LeaderboardPlayerData[];
@@ -40,7 +41,8 @@ const PlayerTable: React.FC<Props> = ({ rows: initialRows, initialResponseTimest
   const refreshLiveGameData = async () => {
     const { signal } = new AbortController();
 
-    const res = await fetch(`/api/active-game?timestamp=${Date.now()}`, {
+    revalidatePath('/api/active-game');
+    const res = await fetch('/api/active-game', {
       signal,
       cache: 'no-store',
     });
@@ -73,6 +75,7 @@ const PlayerTable: React.FC<Props> = ({ rows: initialRows, initialResponseTimest
   const refreshLeaderboardData = async () => {
     const { signal } = new AbortController();
 
+    revalidatePath('/api/leaderboard');
     const res = await fetch(`/api/leaderboard`, {
       signal,
     });
