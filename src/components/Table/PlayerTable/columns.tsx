@@ -28,7 +28,7 @@ const getColumns = (additionalColumns: ColumnProps<RowData<LeaderboardPlayerData
       const summonerName = r.name.value;
       return <div className='playerTable__playerCell'>
       {avatarUrl ? <Avatar src={avatarUrl} /> : null}
-      <a href={`https://www.op.gg/summoners/na/${encodeURIComponent(summonerName)}`} target='_blank' rel='noopener noreferrer'>{r.name.value}</a>
+      <a href={`https://www.op.gg/summoners/na/${encodeURIComponent(summonerName.replace('#', '-'))}`} target='_blank' rel='noopener noreferrer'>{r.name.value}</a>
       </div>
     }
   },
@@ -169,7 +169,7 @@ export const defaultColumns: ColumnProps<RowData<LeaderboardPlayerData>>[] = [
     key: 'isInActiveGame',
     displayFunction(row) {
       const isInActiveGame = row.isInActiveGame.value;
-      const inGameLink = `https://www.op.gg/summoners/na/${encodeURIComponent(row.name.value)}/ingame`;
+      const inGameLink = `https://www.op.gg/summoners/na/${encodeURIComponent(row.name.value).replace('#', '-')}/ingame`;
       if (isInActiveGame) {
         try {
           fetch(inGameLink);
